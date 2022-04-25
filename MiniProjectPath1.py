@@ -120,7 +120,10 @@ print("Mean", mean)
 print("Standard Deviation", std)
 print("Mode\n", mode)
 
+##################################################
 # Question 1
+print()
+print("Question 1")
 dict = {}
 
 dict['Brooklyn'] = mean - (dataset_1['Brooklyn Bridge'].mean())
@@ -135,7 +138,8 @@ print(sorted_dict) # 3 bridges to use
 
 #####################################################
 #Question 2
-
+print()
+print("Question 2")
 temp_prediction = regression(avgtemp, totalTraffic)
 tempMSE = temp_prediction[0]
 tempr2 = temp_prediction[1]
@@ -165,7 +169,9 @@ print("Precipitation r^2 : ", rainr2)
 # Question 3
 # Hypothesis test of two  populations, ones where it rains and the other is not. 
 # Null Hypothesis is that the means are the same
-
+# Significance value is at .01
+print()
+print("Question 3")
 # Creating the sepparate lists from the data
 rained = []
 noRain = []
@@ -191,10 +197,16 @@ z = (xbar - 0) / stderr
 
 pvalue = 2* norm.cdf(-z)
 
-print(std1)
+print("Mean when it rains : ", mean1)
+print("Mean when it does not rain : ", mean2)
+print("Standard deviation when it rains : ",std1)
+print("Standard deviation when it does not rain : " ,std2)
+print("Standard Error : ", stderr)
 print("The P-value : ", pvalue)
 print("The Z-value : ", z)
 
+if pvalue <= .01:
+    print("Reject the Null Hypothesis")
 
 
 
