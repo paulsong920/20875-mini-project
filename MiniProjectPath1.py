@@ -2,11 +2,13 @@ import pandas
 import matplotlib.pyplot as plt
 import numpy as np
 import statistics
+import math
 from sklearn import datasets
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.linear_model import Ridge
+from scipy.stats import norm
 ''' 
 The following is the starting code for path1 for data reading to make your first step easier.
 'dataset_1' is the clean data for path1.
@@ -113,6 +115,7 @@ print(dataset_1[['Day', 'Total']].groupby('Day').sum().reindex(days_of_week))
 
 #####################################################
 #Question 2
+
 temp_prediction = regression(avgtemp, totalTraffic)
 tempMSE = temp_prediction[0]
 tempr2 = temp_prediction[1]
@@ -137,6 +140,42 @@ print("Low temperature MSE : ", lowMSE)
 print("low Temperature r^2 : ", lowr2)
 print("Precipitation MSE : ", rainMSE)
 print("Precipitation r^2 : ", rainr2)
+
+############################################
+# Question 3
+# Hypothesis test of two  populations, ones where it rains and the other is not. 
+# Null Hypothesis is that the means are the same
+
+# Creating the sepparate lists from the data
+rained = []
+noRain = []
+for x in range(len(rain)):
+    if rain[x] == 0:
+        noRain.append(totalTraffic[x])
+    else:
+        rained.append(totalTraffic[x])
+# getting the means and standard deviations
+mean1 = np.mean(rained)
+mean2 = np.mean(noRain)
+
+std1 = np.std(rained, ddof = 1)
+std2 = np.std(noRain, ddof = 1)
+
+n1 = len(rained)
+n2 = len(noRain)
+
+stderr = math.sqrt((std1 ** 2)/n1 + (std2**2) / n2)
+xbar = abs(mean1 - mean2)
+
+z = (xbar - 0) / stderr
+
+pvalue = 2* norm.cdf(-z)
+
+print(std1)
+print("The P-value : ", pvalue)
+print("The Z-value : ", z)
+
+
 
 
 
