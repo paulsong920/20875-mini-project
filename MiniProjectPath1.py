@@ -105,13 +105,33 @@ df['Average Temp'] = avgtemp
 # Creating the descriptive statistic of all collumns
 print(df.describe())
 
-
+# Descriptive Stats
 days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 # Find the sum of totals by day and plot as histogram
 dataset_1[['Day', 'Total']].groupby('Day').sum().reindex(days_of_week).plot(kind='bar', legend=None, title='Amount of Bicyclists per Day', xlabel='Day', ylabel='Bicyclists')
 plt.show()
 # Print the Dataset being plotted
 print(dataset_1[['Day', 'Total']].groupby('Day').sum().reindex(days_of_week))
+
+mean = dataset_1['Total'].mean()
+std = dataset_1['Total'].std()
+mode = dataset_1['Total'].mode()
+print("Mean", mean)
+print("Standard Deviation", std)
+print("Mode\n", mode)
+
+# Question 1
+dict = {}
+
+dict['Brooklyn'] = mean - (dataset_1['Brooklyn Bridge'].mean())
+dict['Manhattan'] = mean - dataset_1['Manhattan Bridge'].mean()
+dict['Queensboro'] = mean - (dataset_1['Queensboro Bridge'].mean())
+dict['Williamsburg'] = mean - dataset_1['Williamsburg Bridge'].mean()
+
+# Sort in descending order of average for each bridge
+sorted_dict = (sorted(dict.items(), key=lambda x: x[1], reverse=True))
+# print(sorted_dict.pop(0))  # Remove value that is most off from the mean
+print(sorted_dict) # 3 bridges to use
 
 #####################################################
 #Question 2
